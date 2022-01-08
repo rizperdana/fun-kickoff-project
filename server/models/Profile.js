@@ -1,9 +1,9 @@
 const Schema = mongoose.Schema;
 
 const profileSchema = new mongoose.Schema({
-    user: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "User",
         required: true
     },
     firstName: {
@@ -16,7 +16,7 @@ const profileSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ["male", "female", "other"],
+        enum: ["male", "female", "non-binary"],
         required: true
     },
     dateOfBirth: {
@@ -28,7 +28,7 @@ const profileSchema = new mongoose.Schema({
     availability: [{
         day: {
             type: String,
-            num: [
+            enum: [
                 'sunday',
                 'monday',
                 'tuesday',
