@@ -1,18 +1,21 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const { describe } = require("mocha");
 const app = require("../app.js");
-const server = app.server
+const server = app.server;
+
 chai.should();
 chai.use(chaiHttp);
 
-describe("GET /ping", () => {
-    it("it should return 200 and a string message", (done) => {
+describe("GET /auth/logout", () => {
+    it("should get logout and return the message", (done) => {
         chai
             .request(server)
-            .get("/")
+            .post("/auth/logout")
+            .send({})
             .end((err, res) => {
                 res.should.have.status(200);
-                res.text.should.eql("API is running")
+                res.text.should.equal("You have successfully logged out");
                 done();
             });
     });
