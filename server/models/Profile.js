@@ -1,15 +1,52 @@
-const mongoose = require("mongoose");
-const timeSlot = new mongoose.Schema({ start: Date, end: Date })
+const Schema = mongoose.Schema;
 
 const profileSchema = new mongoose.Schema({
-    firstname: { type: String },
-    lastname: { type: String },
-    description: { type: String },
-    availability: { type: [timeSlot] },
-    address: { type: String },
-    dateOfBirth: { type: Date },
-    photo: { type: String },
-    socialMedia: { type: String }
-});
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female", "other"],
+        required: true
+    },
+    dateOfBirth: {
+        type: Date
+    },
+    description: {
+        type: String
+    },
+    availability: [{
+        day: {
+            type: String,
+            num: [
+                'sunday',
+                'monday',
+                'tuesday',
+                'wednesday',
+                'thursday',
+                'friday',
+                'saturday'
+            ]
+        },
+        time: String,
+        date: Date
+    }],
+    address: {
+        type: String
+    },
+    photo: {
+        type: String
+    },
+}, { timestamps: true });
 
-module.exports = User = mongoose.model("user", profileSchema);
+module.exports = Profile = mongoose.model("Profile", profileSchema);
